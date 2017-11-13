@@ -2,6 +2,7 @@ const sql = require('mysql');
 var MojangAPI = require('mojang-api');
 const uuidParse = require('uuid-parse');
 const config = require("../config.json");
+var randomstring = require("randomstring");
 //Connect to the Database//
 const con = sql.createConnection({
   host: config.mysqlip,
@@ -315,14 +316,16 @@ function Link(msg, con) {
   let args = msg.content.split(" ").slice(1);
   let name = args[0]
 
-  if(con.query(`SELECT * FROM Name WHERE clientid = '${msg.author.id}'`, function(err,result){ result[0].clientid = msg.author.id })){
-    msg.reply("You Have Already Linked Your Account.")
+  if(con.query(`SELECT * FROM Name WHERE clientid = ${msg.author.id}`, function(err,result){
+    console.log(result)
+     result[0] = undefined})){
+    let password = randomstring.generate(12);
+    msg.author.send("Please Login to the Horizions III Server and run this command ```/link " + password + "``` Thank you for Choosing Kreytos we know you probably dont have a lot of options, so we try to be as good as possible <3");
     return;
     }
   else{
-    let password = 
-    message.author.send("Please Login to the Horizions III Server and run this command ```/link " + password + "``` Thank you for Choosing Kreytos we know you probably dont have a lot of options, so we try to be as good as possible <3");
-
+    msg.reply("You Have Already Linked Your Account.")
+    return;
     }
   }
 
