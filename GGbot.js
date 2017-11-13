@@ -40,6 +40,7 @@ const ServerChat = config.server;
 // cmds SHIT
 
 const tfc = require('./commands/tfcCMDs.js');
+const hrz3 = require('./commands/horizonCMDs.js');
 //const economy = require('./commands/economy.js');
 const EcoNew = require('./commands/EcoNew.js');
 // TESTING MC SERVER shit
@@ -179,6 +180,21 @@ client.on('message', msg => {
   for (let i = 0; i < tfcCMDS.length; i++) {
     if (args[0] === tfcCMDS[i] && cmd === "tfc") {
       tfcFuncs[i](msg);
+
+    }
+  }
+	
+  let hrz3CMDS = ["list", "status", "motd", "maxP"];
+  let hrz3Funcs = [
+    hrz3.list,
+    hrz3.stats,
+    hrz3.motd,
+    hrz3.maxplayers
+  ];
+
+  for (let i = 0; i < hrz3CMDS.length; i++) {
+    if (args[0] === hrz3CMDS[i] && cmd === "hrz3") {
+      hrz3Funcs[i](msg);
 
     }
   }
