@@ -182,6 +182,21 @@ client.on('message', msg => {
 
     }
   }
+	
+  let hrz3CMDS = ["list", "status", "motd", "maxP"];
+  let hrz3Funcs = [
+    hrz3.list,
+    hrz3.stats,
+    hrz3.motd,
+    hrz3.maxplayers
+  ];
+
+  for (let i = 0; i < hrz3CMDS.length; i++) {
+    if (args[0] === hrz3CMDS[i] && cmd === "hrz3") {
+      hrz3Funcs[i](msg);
+
+    }
+  }
 
   if (cmd === "shutdown") {
     if (msg.author.id == "270017065300131840" || member.author.id == "190006124232048640") {
