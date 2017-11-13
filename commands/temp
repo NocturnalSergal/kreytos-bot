@@ -1,0 +1,17 @@
+        con.query('SELECT Count(id) FROM Name', function (err, result){
+            lem = lem + result[0]['Count(id)']
+                for( var i=1; i<lem; i++){
+                    if(con.query(`SELECT * FROM Name WHERE id = "${i}"`, function (err, result1){
+                        result1[0].Daily > 0
+                    })){
+                        con.query(`Select * FROM Name WHERE id = "${i}"`, function (err, result2){
+                            DailyInt = result2[0].Daily
+                            con.query(`UPDATE Name SET Daily = "${DailyInt - 1}"  WHERE id ="${i}"`)
+                        })
+                        
+                    
+                }
+        }
+
+
+});
