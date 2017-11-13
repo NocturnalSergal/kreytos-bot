@@ -319,15 +319,15 @@ function Link(msg, con) {
         console.log(err);
     else {
         let uuidbytes = uuidParse.parse(res[0].id);
-        let uuid = uuidParse.unparse(uuidbytes);
-        con.query(``)
+        let uuid = uuidParse.unparse(uuidbytes);        
+        con.query('')
 
     }
 });
 }
 
 function onStart() {
-  setInterval(function() {UpdateDaily()}, 1000 * 60);
+  setInterval(function() {UpdateDaily()}, 1000 * 60 * 60);
 }
 exports.onStart = onStart;
 exports.getLevel = getLevel;
