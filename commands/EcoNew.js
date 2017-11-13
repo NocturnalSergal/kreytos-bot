@@ -4,10 +4,10 @@ const uuidParse = require('uuid-parse');
 const config = require("../config.json");
 //Connect to the Database//
 const con = sql.createConnection({
-  host: config.mysql-ip,
-  user: config.mysql-user,
-  password: config.mysql-password,
-  database: config.mysql-database
+  host: config.mysqlip,
+  user: config.mysqluser,
+  password: config.mysqlpassword,
+  database: config.mysqldatabase
 });
 // getting uuid func //
 
@@ -314,17 +314,18 @@ function clearBal(msg, con) {
 function Link(msg, con) {
   let args = msg.content.split(" ").slice(1);
   let name = args[0]
-  MojangAPI.nameToUuid(name, function(err, res) {
-    if (err)
-        console.log(err);
-    else {
-        let uuidbytes = uuidParse.parse(res[0].id);
-        let uuid = uuidParse.unparse(uuidbytes);        
-        con.query('')
+
+  if(con.query(`SELECT * FROM Name WHERE clientid = '${msg.author.id}'`, function(err,result){ result[0].clientid = msg.author.id })){
+    msg.reply("You Have Already Linked Your Account.")
+    return;
+    }
+  else{
+    let password = 
+    message.author.send("Please Login to the Horizions III Server and run this command ```/link " + password + "``` Thank you for Choosing Kreytos we know you probably dont have a lot of options, so we try to be as good as possible <3");
 
     }
-});
-}
+  }
+
 
 function onStart() {
   setInterval(function() {UpdateDaily()}, 1000 * 60 * 60);

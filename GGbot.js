@@ -21,10 +21,10 @@ const client = new Discord.Client();
 const sql = require('mysql');
 //Connect to the Database//
 const con = sql.createConnection({
-  host: config.mysql-ip,
-  user: config.mysql-user,
-  password: config.mysql-password,
-  database: config.mysql-database
+  host: config.mysqlip,
+  user: config.mysqluser,
+  password: config.mysqlpassword,
+  database: config.mysqldatabase
 });
 //On Connection Throw a Log saying "Connected"//
 con.connect(function(err) {
