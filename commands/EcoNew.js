@@ -316,18 +316,22 @@ function Link(msg, con) {
   let args = msg.content.split(" ").slice(1);
   let name = args[0]
 
-  if(con.query(`SELECT * FROM Name WHERE clientid = ${msg.author.id}`, function(err,result){
-    console.log(result)
-     result[0] = undefined})){
-    let password = randomstring.generate(12);
-    msg.author.send("Please Login to the Horizions III Server and run this command ```/link " + password + "``` Thank you for Choosing Kreytos we know you probably dont have a lot of options, so we try to be as good as possible <3");
-    return;
-    }
-  else{
-    msg.reply("You Have Already Linked Your Account.")
-    return;
-    }
+      con.query(`SELECT * FROM Name WHERE clientid = ${msg.author.id}`, function(err, result){
+        if(typeof result[0] == "undefined")
+        {
+         let password = randomstring.generate(20)
+         var query = "INSERT INTO `Economy`.`Name` (`id`, `uuid`, `clientid`, `Level`, `Daily`, `Chest`) VALUES (NULL, " + sql.escape(password) +"," + sql.escape(msg.author.id) + ", '0', '0', '0');";
+         con.query(query)
+          msg.author.send("Please Login to the Horizions III Server and run this command  ```   /link " + password + " ```Thank you for Choosing Kreytos we know you probably dont have a lot of options, so we try to be as good as possible :hearts:")
+        }
+        else
+        {
+          msg.reply("You Have Already Linked Your Account.")
+        }
+      })
   }
+
+
 
 
 function onStart() {
