@@ -40,6 +40,7 @@ const ServerChat = config.server;
 // cmds SHIT
 
 const tfc = require('./commands/tfcCMDs.js');
+const hrz3 = require('./commands/horizonCMDs.js');
 //const economy = require('./commands/economy.js');
 const EcoNew = require('./commands/EcoNew.js');
 // TESTING MC SERVER shit
