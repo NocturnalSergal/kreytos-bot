@@ -17,6 +17,10 @@ const con = sql.createConnection({
     // Balance //
         function getBal(msg, con) {
           con.query(`SELECT * FROM Name WHERE clientid = ${msg.author.id}` , function(err, result){
+ if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
+     msg.reply("Please Finnish Linking your account before running this command.")
+     return;
+}
             uuid = result[0].uuid
             con.query(`SELECT * FROM accounts WHERE uid = "${uuid}"`, function (err, result) {
                 money = result[0].ets_balance
@@ -29,6 +33,10 @@ const con = sql.createConnection({
 
     function balChest(msg, con) {
         con.query(`SELECT * FROM Name WHERE clientid ="${msg.author.id}"`, function (err, result) {
+ if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
+     msg.reply("Please Finnish Linking your account before running this command.")
+     return;
+}
             Chestamt = result[0].Chest
             msg.channel.send("You have " + Chestamt + " chest");
         });
@@ -39,6 +47,10 @@ const con = sql.createConnection({
 
     function useChest(msg, con) {
       con.query(`SELECT * FROM Name WHERE clientid = ${msg.author.id}` , function(err, result){
+ if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
+     msg.reply("Please Finnish Linking your account before running this command.")
+     return;
+}
   uuid = result[0].uuid
 
   let args = msg.content.split(" ").slice(1);
@@ -155,6 +167,10 @@ function dailyClear(client, con, LogChat) {
 // Get Level //
 function getLevel(msg, con) {
   con.query(`SELECT * FROM Name WHERE clientid ="${msg.author.id}"`, function(err, result){
+     if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
+     msg.reply("Please Finnish Linking your account before running this command.")
+     return;
+}
       Levelint = result[0].Level;
     if (Levelint = 0) return msg.reply("Your current level is 0");
     msg.reply("Your current level is " + Levelint);
@@ -164,6 +180,10 @@ function getLevel(msg, con) {
 // Get Daily //
 function getDaily(msg, con) {
   con.query(`SELECT * FROM Name WHERE clientid = ${msg.author.id}` , function(err, result){
+ if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
+     msg.reply("Please Finnish Linking your account before running this command.")
+     return;
+}
   uuid = result[0].uuid
 
   con.query(`SELECT * FROM Name WHERE clientid =${msg.author.id}`, function(err, result) {
@@ -192,6 +212,10 @@ function getDaily(msg, con) {
 // pay //
 function pay(msg, con) {
   con.query(`SELECT * FROM Name WHERE clientid = ${msg.author.id}` , function(err, result){
+ if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
+     msg.reply("Please Finnish Linking your account before running this command.")
+     return;
+}
   uuid = result[0].uuid
   
   if(msg.channel.type == "DM") return msg.channel.send("Cannot perform in dms!");
@@ -226,6 +250,10 @@ function pay(msg, con) {
     if (CurrentPoints < sendPoints) return msg.reply("you don't have enough Ets!");
     con.query(`UPDATE accounts SET ets_balance = "${CurrentPoints - sendPoints}" WHERE uid = "${uuid}"`);
     con.query(`SELECT * FROM Name WHERE clientid = "${getPlayer}"`, function(err, result){
+ if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
+     msg.reply("Please Finnish Linking your account before running this command.")
+     return;
+}
       uuidto = result[0].uuid
 
     con.query(`SELECT * FROM accounts WHERE uid ="${uuidto}"`, function(err, result) {
@@ -241,6 +269,10 @@ function pay(msg, con) {
 // Buy Chest //
 function buyChest(msg, con) {
   con.query(`SELECT * FROM Name WHERE clientid = ${msg.author.id}` , function(err, result){
+ if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
+     msg.reply("Please Finnish Linking your account before running this command.")
+     return;
+}
   uuid = result[0].uuid
   let args = msg.content.split(" ").slice(1);
 
