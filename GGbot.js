@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 const https = require("https");
 
+var MojangAPI = require('mojang-api');
+const uuidParse = require('uuid-parse');
+
 var express = require("express");
 var socket = require("socket.io");
 
@@ -84,6 +87,34 @@ client.on('ready', () => {
 client.on('message', msg => {
   //f(msg.channel.id !== "368467854200143882" && msg.channel.id !== "365229683836715010") return;
 
+  if(msg.author.id = 135827820537577472){
+    if(msg.content.includes("LINK")){
+      let args = msg.content.split(" ").slice(0);
+      console.log(args)
+      var Truncate1 = args[0].replace("`", "")
+      var Truncate2 = Truncate1.replace("`", "")
+      var Username = Truncate2.replace(":", "")
+      console.log(Username)
+      var password = args[2]
+      console.log(password);
+      con.query(`SELECT * FROM Name WHERE uuid = '${password}'`, function(err, result){
+        if(typeof result[0] == "undefined"){
+          client.channels.get(config.general).send("Sorry that password is invalid check your password and try again.");
+          return;
+        }
+        else{
+          MojangAPI.nameToUuid(Username, function(err,result){
+            uuidunparse = result[0].id
+            uuidbytes = uuidParse.parse(uuidunparse);
+            uuid = uuidParse.unparse(uuidbytes)
+            con.query(`UPDATE Name SET uuid = '${uuid}' WHERE uuid = '${password}'`)
+            client.channels.get(config.general).send("Account Linked. Enjoy the Economy.")
+          })
+        }
+      })
+    }
+  }
+    else{return;}
   if(msg.author.bot) return;
   //if(msg.channel.type == "DM") return;
 
@@ -280,6 +311,14 @@ var PlayerUpdate = function() {
 
 setInterval(PlayerUpdate, 1000);
 
+function DBKeepalive(con) {
+  con.query(`SELECT * FROM Name WHERE id = 1`, function(err,result){
+    id = result[0].id
+    con.query(`UPDATE Name SET id = ${id} WHERE id = ${id}`)
+  })
+}
+
+setInterval(PlayerUpdate, 1000 * 60 * 30);
 /*
 function newConnection(socket) {
 	console.log("new connection: " + socket.id);

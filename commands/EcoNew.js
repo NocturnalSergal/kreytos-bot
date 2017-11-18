@@ -354,7 +354,7 @@ function Link(msg, con) {
          let password = randomstring.generate(20)
          var query = "INSERT INTO `Economy`.`Name` (`id`, `uuid`, `clientid`, `Level`, `Daily`, `Chest`) VALUES (NULL, " + sql.escape(password) +"," + sql.escape(msg.author.id) + ", '0', '0', '0');";
          con.query(query)
-          msg.author.send("Please Login to the Horizions III Server and run this command  ```   /link " + password + " ```Thank you for Choosing Kreytos we know you probably dont have a lot of options, so we try to be as good as possible :hearts:")
+          msg.author.send("Please Login to the Horizions III Server and + send this in the chat LINK" + password + "Thank you for Choosing Kreytos we know you probably dont have a lot of options, so we try to be as good as possible :hearts:")
         }
         else
         {
@@ -362,9 +362,6 @@ function Link(msg, con) {
         }
       })
   }
-
-
-
 
 function onStart() {
   setInterval(function() {UpdateDaily()}, 1000 * 60 * 60);
