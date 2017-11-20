@@ -87,7 +87,7 @@ client.on('ready', () => {
 client.on('message', msg => {
   //f(msg.channel.id !== "368467854200143882" && msg.channel.id !== "365229683836715010") return;
 
-  if(msg.author.id = 135827820537577472){
+  if(msg.author.bot){
     if(msg.content.includes("LINK")){
       let args = msg.content.split(" ").slice(0);
       console.log(args)
@@ -99,7 +99,7 @@ client.on('message', msg => {
       console.log(password);
       con.query(`SELECT * FROM Name WHERE uuid = '${password}'`, function(err, result){
         if(typeof result[0] == "undefined"){
-          client.channels.get(config.general).send("Sorry that password is invalid check your password and try again.");
+          client.channels.get(config.server).send("Sorry that password is invalid check your password and try again.");
           return;
         }
         else{
@@ -108,14 +108,12 @@ client.on('message', msg => {
             uuidbytes = uuidParse.parse(uuidunparse);
             uuid = uuidParse.unparse(uuidbytes)
             con.query(`UPDATE Name SET uuid = '${uuid}' WHERE uuid = '${password}'`)
-            client.channels.get(config.general).send("Account Linked. Enjoy the Economy.")
+            client.channels.get(config.server).send("Account Linked. Enjoy the Economy.")
           })
         }
       })
     }
   }
-    else{return;}
-  if(msg.author.bot) return;
   //if(msg.channel.type == "DM") return;
 
   if(!msg.content.startsWith(config.prefix)) {
@@ -232,7 +230,7 @@ client.on('message', msg => {
 
   if (cmd === "shutdown") {
     if (msg.author.id == "270017065300131840" || member.author.id == "190006124232048640") {
-      economy.dailyClear(client, sql, LogChat);
+      EcoNew.dailyClear(client, sql, LogChat);
       msg.reply("Ok! Shutting down.")
       setTimeout(function() {process.exit()}, 1000);
       return;

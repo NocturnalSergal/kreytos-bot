@@ -156,7 +156,7 @@ con.query('UPDATE Name SET Daily = Daily - 1 WHERE Daily > 0')
 }
 
 // Clear Daily //
-function dailyClear(client, con, LogChat) {
+function dailyClear(client, LogChat) {
   con.query(`SELECT Daily FROM Name`, function (err, result){
     con.query(`UPDATE Name SET Daily = ${0}`);
     client.channels.get(LogChat).send("Cleared daily cooldowns for all players");
@@ -358,14 +358,24 @@ function Link(msg, con) {
         }
         else
         {
-          msg.reply("You Have Already Linked Your Account.")
+          if(result[0].uuid.length >  20){
+            msg.reply("You Have Already Linked Your Account.")
+            return;
+      }
+          else{
+            msg.reply("Please Finnish Linking your account.")
+          }
         }
       })
   }
 
+
+
+
 function onStart() {
   setInterval(function() {UpdateDaily()}, 1000 * 60 * 60);
 }
+
 exports.onStart = onStart;
 exports.getLevel = getLevel;
 exports.getBal = getBal;
