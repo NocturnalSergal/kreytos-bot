@@ -90,13 +90,10 @@ client.on('message', msg => {
   if(msg.author.bot){
     if(msg.content.includes("LINK")){
       let args = msg.content.split(" ").slice(0);
-      console.log(args)
       var Truncate1 = args[0].replace("`", "")
       var Truncate2 = Truncate1.replace("`", "")
       var Username = Truncate2.replace(":", "")
-      console.log(Username)
       var password = args[2]
-      console.log(password);
       con.query(`SELECT * FROM Name WHERE uuid = '${password}'`, function(err, result){
         if(typeof result[0] == "undefined"){
           client.channels.get(config.server).send("Sorry that password is invalid check your password and try again.");

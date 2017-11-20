@@ -23,7 +23,7 @@ const con = sql.createConnection({
 }
             uuid = result[0].uuid
             con.query(`SELECT * FROM accounts WHERE uid = "${uuid}"`, function (err, result) {
-                money = result[0].ets_balance
+                money = result[0].et_balance
                 msg.reply("You have " + money + " ets")
             });
             });
@@ -127,8 +127,8 @@ const con = sql.createConnection({
       }
 
       con.query(`SELECT * FROM accounts WHERE uid ="${uuid}"`, function (err, result) {
-          Points = result[0].ets_balance
-        con.query(`UPDATE accounts SET ets_balance = ${Points + totalReward} WHERE uid = "${uuid}"`);
+          Points = result[0].et_balance
+        con.query(`UPDATE accounts SET et_balance = ${Points + totalReward} WHERE uid = "${uuid}"`);
       });
 
       //msg.channel.send("Congratz! You won " + totalReward + " Ets. \nLoot boxes: " + crates);
@@ -190,8 +190,8 @@ function getDaily(msg, con) {
     if (result[0].Daily <= 0) {
         ChestInt = result[0].Chest
             con.query(`SELECT * FROM accounts WHERE uid = "${uuid}"`, function(err, result){
-                ets_balanceint = result[0].ets_balance
-                con.query(`UPDATE accounts SET ets_balance = ${ets_balanceint + 20} WHERE uid = "${uuid}"`);
+                ets_balanceint = result[0].et_balance
+                con.query(`UPDATE accounts SET et_balance = ${ets_balanceint + 20} WHERE uid = "${uuid}"`);
             })
       con.query(`UPDATE Name SET Chest = ${ChestInt + 1} WHERE clientid = ${msg.author.id}`);
       con.query(`UPDATE Name SET Daily = ${20} WHERE clientid = ${msg.author.id}`);
@@ -245,10 +245,10 @@ function pay(msg, con) {
   if (sendPoints < 0) return msg.reply("You cannot send negative points to someone!");
 
   con.query(`SELECT * FROM accounts WHERE uid ="${uuid}"`, function(err, result) {
-    let CurrentPoints = result[0].ets_balance;
+    let CurrentPoints = result[0].et_balance;
     if (CurrentPoints < 0) return msg.reply("sadly you do not have any Ets yet!");
     if (CurrentPoints < sendPoints) return msg.reply("you don't have enough Ets!");
-    con.query(`UPDATE accounts SET ets_balance = "${CurrentPoints - sendPoints}" WHERE uid = "${uuid}"`);
+    con.query(`UPDATE accounts SET et_balance = "${CurrentPoints - sendPoints}" WHERE uid = "${uuid}"`);
     con.query(`SELECT * FROM Name WHERE clientid = "${getPlayer}"`, function(err, result){
  if ( typeof result[0] == "undefined" || result[0].uuid.length < 21) {
      msg.reply("Please Finnish Linking your account before running this command.")
@@ -257,8 +257,8 @@ function pay(msg, con) {
       uuidto = result[0].uuid
 
     con.query(`SELECT * FROM accounts WHERE uid ="${uuidto}"`, function(err, result) {
-      points = result[0].ets_balance
-      con.query(`UPDATE accounts SET ets_balance = "${points + sendPoints}" WHERE uid = "${uuidto}"`);
+      points = result[0].et_balance
+      con.query(`UPDATE accounts SET et_balance = "${points + sendPoints}" WHERE uid = "${uuidto}"`);
       msg.channel.send("You sent " + sendPoints + " Ets to " + inp)
     });
     });
@@ -289,10 +289,10 @@ function buyChest(msg, con) {
 
 
   con.query(`SELECT * FROM accounts WHERE uid ="${uuid}"`, function(err, result) {
-    pointscurrent = result[0].ets_balance
+    pointscurrent = result[0].et_balance
     if (pointscurrent < amtPrice) { return msg.channel.send("You do not have enough Ets!")};
 
-    con.query(`UPDATE accounts SET ets_balance = ${pointscurrent - amtPrice} WHERE uid = "${uuid}"`);
+    con.query(`UPDATE accounts SET et_balance = ${pointscurrent - amtPrice} WHERE uid = "${uuid}"`);
 
     msg.reply("You purchased " + chestAmt + " chest. At price of " + amtPrice + " Ets");
     con.query(`SELECT * FROM Name WHERE clientid = "${msg.author.id}"`, function(err, result){
@@ -334,7 +334,7 @@ function clearBal(msg, con) {
 
   con.query(`SELECT * FROM Name WHERE clientid ="${getPlayer}"`, function(err, result){
     uuidto = result[0].uuid
-    con.query(`UPDATE accounts SET ets_balance = ${0} WHERE uid = ${uuidto}`);
+    con.query(`UPDATE accounts SET et_balance = ${0} WHERE uid = ${uuidto}`);
     con.query(`UPDATE Name SET Chest = ${0} WHERE clientid = ${getPlayer}`);
     con.query(`UPDATE Name SET Daily = ${0} WHERE clientid = ${getPlayer}`);
     con.query(`UPDATE Name SET Level = ${0} WHERE clientid = ${getPlayer}`);
