@@ -87,7 +87,7 @@ client.on('ready', () => {
 client.on('message', msg => {
   //f(msg.channel.id !== "368467854200143882" && msg.channel.id !== "365229683836715010") return;
 
-  if(msg.author.bot){
+  if(msg.author.id == 374649577489563650){
     if(msg.content.includes("LINK")){
       let args = msg.content.split(" ").slice(0);
       var Truncate1 = args[0].replace("`", "")
@@ -109,6 +109,9 @@ client.on('message', msg => {
           })
         }
       })
+    }
+    else{
+      return;
     }
   }
   //if(msg.channel.type == "DM") return;

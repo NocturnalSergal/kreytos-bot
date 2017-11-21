@@ -257,7 +257,7 @@ function pay(msg, con) {
       uuidto = result[0].uuid
 
     con.query(`SELECT * FROM accounts WHERE uid ="${uuidto}"`, function(err, result) {
-      points = result[0].et_balance
+      let points = result[0].et_balance
       con.query(`UPDATE accounts SET et_balance = "${points + sendPoints}" WHERE uid = "${uuidto}"`);
       msg.channel.send("You sent " + sendPoints + " Ets to " + inp)
     });
